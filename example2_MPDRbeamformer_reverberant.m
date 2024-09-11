@@ -44,6 +44,8 @@ locTarget = [4, 5, 1];
 plotLayout(locInterferer, locTarget, locReceiver)
 [~, NN] = min(vecnorm(locReceiver-locTarget,2,2));
 disp("The microphone which is nearest to the target is microphone number " + num2str(NN));
+
+%The recevied audio (audioRec) is the mixture of the target audio (audioRecTAR) and the interfering (audioRecINT) audio. AudioPlayClean is the input signal.
 [audioRec, audioRecTAR, audioRecINT, audioPlayClean] = fnc_computeReceivedAudioAnechoic(locInterferer, locReceiver, locTarget,c , fs, window_length+pad_length);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,49 +56,20 @@ MPDR = MPDRbeamformer(c, fs, window_length, pad_length, lambda, regFactor, flag_
 %Define look direction 
 look_location = locTarget;          %The direction in which the beamformer "looks", this is defined with respect to....
 receiver_location = locReceiver;    %... the receiver location 
-MPDR.updateLookDirection(look_location, receiver_location);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Perform beamforming as if the frames come in on a frame-by-frame basis %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Initialise
-stop_flag = false;
-l = 0;
-audioOut = zeros(size(audioRec,1),1);
-
-%Loop over frames
-while ~stop_flag
-    try
-        audioRecFrame = audioRec(l*MPDR.N_hop+1:l*MPDR.N_hop+MPDR.N_t,:);
-    catch ME
-        stop_flag = true;
-    end
-
-    if ~stop_flag
-
-        %For testing it is interesting to have a perfect voice activity detector (VAD). This essentially makes the MPDR an MVDR. To activate, set first VAD=true.
-        if norm(audioRecTAR(l*MPDR.N_hop+1:l*MPDR.N_hop+MPDR.N_t, NN))>0.01
-            VAD = false;  %To make MVDR: set this VAD to true
-        else
-            VAD = false; %Keep this one as is!
-        end
-
-        %Compute output frame and append to outut signal
-        audioOutFrame = MPDR.computeOutputFrame(audioRecFrame, flag_bias_correction, VAD); 
-        audioOut(l*MPDR.N_hop+1:l*MPDR.N_hop+MPDR.N_t) = audioOut(l*MPDR.N_hop+1:l*MPDR.N_hop+MPDR.N_t) + audioOutFrame;
-    
-        l = l+1;
-    end
-end
+%%%%%%%%%%%%%%%%%%%%%%%
+% Perform beamforming %
+%%%%%%%%%%%%%%%%%%%%%%%
+audioOut = MPDR.MPDR_beamformer(receiver_location, look_location, audioRec);
 
 %%%%%%%%%%%%%%%%
 % Plot results %
 %%%%%%%%%%%%%%%%
 figure
-plot(audioRec(:,NN))
 hold on
 plot(audioOut)
-legend("Audio at microphone " + num2str((NN)), "Audio at output MPDR")
+plot(audioRec(:,NN))
+legend("Audio at output MPDR", "Audio at microphone " + num2str((NN)))
 xlabel('Sample index')
 
 %%%%%%%%%%%%%%%%
@@ -114,10 +87,15 @@ disp("the estimated intelligibility (from 0 to 1, higher is better) at the neare
 % Listen to audio signals %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 if listen_flag
+    disp("Playing clean audio...")
     soundsc(audioPlayCleanAligned, MPDR.fs);
     pause(length(audioPlayCleanAligned)/MPDR.fs)
+
+    disp("Playing audio received at reference microphone...")
     soundsc(audioNNAligned, MPDR.fs);
     pause(length(audioPlayCleanAligned)/MPDR.fs)
+
+    disp("Playing audio at output MPDR beamformer...")
     soundsc(audioOutAligned, MPDR.fs);
 end
 

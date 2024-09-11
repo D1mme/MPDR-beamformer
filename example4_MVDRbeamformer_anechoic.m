@@ -58,7 +58,7 @@ receiver_location = locReceiver;    %... the receiver location
 %%%%%%%%%%%%%%%%%%%%%%%
 % Perform beamforming %
 %%%%%%%%%%%%%%%%%%%%%%%
-audioOut = MPDR.MPDR_beamformer(receiver_location, look_location, audioRec);
+audioOut = MPDR.MVDR_beamformer(receiver_location, look_location, audioRec, audioRecTAR);
 
 %%%%%%%%%%%%%%%%
 % Plot results %
