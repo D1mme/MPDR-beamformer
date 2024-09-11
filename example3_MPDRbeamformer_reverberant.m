@@ -135,7 +135,7 @@ function [audioRec, audioRecTAR, audioRecINT, audioTar] = fnc_computeReceivedAud
     N_tar = size(locTarget, 1); %this should be one for the current implementation
     N_rec = size(locReceiver,1);
 
-    audioTar = audioread('Data/sample_16kHz.wav');
+    audioTar = audioread('Excerpt/sample_16kHz.wav');
     audioTar = [zeros(5*Fs,1); audioTar; zeros(3*Fs,1)];
     audioInt = 0.3*randn(length(audioTar), N_int);
 
