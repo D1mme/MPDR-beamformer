@@ -1,0 +1,6 @@
+The audio sample in this folder is derived from "Sprite Fight" by Blender Studio.
+
+Sprite Fight is released under a Creative Commons Attribution 1.0 License, see https://creativecommons.org/licenses/by/1.0/
+(CC) Blender Foundation | studio.blender.org
+https://studio.blender.org/films/sprite-fright/ 
+
