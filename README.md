@@ -1,5 +1,5 @@
 # Minimum Power Distortionless Response Beamformer
-This code implements a near-field minimum power distortionless response (MPDR) beamformer.
+This code is the matlab implementation of  a near-field minimum power distortionless response (MPDR) beamformer.
 
 As input, the beamformer takes the target location and the microphone locations. The power spectral density matrices corresponding to the received signals are estimated. 
 Using this matrix, the MPDR beamformer tries to preserve the signal from the target location while discarding the noise signal. 
