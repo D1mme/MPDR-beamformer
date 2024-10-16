@@ -3,7 +3,7 @@ This code is the matlab implementation of  a near-field minimum power distortion
 Note that, in literature, the MPDR beamformer is often incorrectly referred to as the MVDR beamformer.
 
 As input, the beamformer takes the target location and the microphone locations. The power spectral density matrix corresponding to the received signal is estimated. 
-Using this matrix, the MPDR beamformer tries to preserve the signal from the target location while discarding the noise signal. 
+Using this matrix, the MPDR beamformer tries to preserve the signal from the target location while discarding signals from other directions. 
 If a voice activity detector is used, the MPDR can be changed to a minimum variance distortionless response (MVDR) beamformer.
 
 Four examples are provided. 
