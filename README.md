@@ -12,8 +12,13 @@ Four examples are provided.
 - Example 3: A reverberant scenario with multiple noise sources, MPDR beamforming
 - Example 4: An anechoic scenario with a single noise source, MVDR beamforming with perfect voice activity detection
 
+For each of the examples, three output audio files can be found in `Example_Audio`: 
+- The clean (target) signal. Note that it includes a small delay before starting
+- The noisy signal. The noise level is not necessarily the same throughout the different examples. This signal is the signal measured by the reference microphone. The reference microphone is the microphone nearest to the target.
+- The enhanced signal. I.e. the output of the microphone beamformer. 
+
+## Licensing
 The examples make use of the [room-impulse response generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/rir-generator) from E. Habets (MIT license). You might need to compile this for your system.
 The sound excerpt is taken from the movie ['Sprite Fight'](https://studio.blender.org/films/sprite-fright/) by Blender Studio (Creative Commons Attribution 1.0 License). 
 
 
- 

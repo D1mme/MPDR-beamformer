@@ -1,9 +1,9 @@
 %Author:    Dimme de Groot
 %Date:      May 2024
-%Descr:     Example 1 of how to use the MPDR beamformer object. In this example, there is only one interferer. 
+%Descr:     Example 4 of how to use the MPDR beamformer object. In this example, there is only one interferer and we use the MVDR beamformer instead 
+%               of the MPDR beamformer. To do so, a voice activity detector based on the clean speech signal is used. 
 %               This example validates the performance of the MPDR beamformer. The room impulse response (RIR) is the direct path (i.e. anechoic).
-%               The look direction of the beamformer is the actual FFT(RIR), i.e. a perfect match.
-%               In case you want to see how the MPDR beamformer performs with a near-perfect estimate of the noise PSD matrix, you can set VAD flag to true in line 71. 
+%               The look direction of the beamformer is the actual FFT(RIR), i.e. a perfect match. 
 %
 %Note:      The code supports multiple interferers, just add more interferer locations. However, I didn't write code for multiple target locations. 
 

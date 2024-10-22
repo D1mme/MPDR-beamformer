@@ -3,7 +3,6 @@
 %Descr:     Example 1 of how to use the MPDR beamformer object. In this example, there is only one interferer. 
 %               This example validates the performance of the MPDR beamformer. The room impulse response (RIR) is the direct path (i.e. anechoic).
 %               The look direction of the beamformer is the actual FFT(RIR), i.e. a perfect match.
-%               In case you want to see how the MPDR beamformer performs with a near-perfect estimate of the noise PSD matrix, you can set VAD flag to true in line 71. 
 %
 %Note:      The code supports multiple interferers, just add more interferer locations. However, I didn't write code for multiple target locations. 
 
@@ -27,7 +26,7 @@ flag_full_axis = true;          %[-], either uses half of the frequency axis or 
 analysis_window = "sqrthann";   %[-], the analysis window
 synthesis_window = "sqrthann";  %[-], the synthesis window
 
-%Scenario
+%Scenario (interferer, receiver and target location in meters. The target location is the location on which the beamformer focuses.
 locInterferer = [2.3,5.1,1];
 locReceiver = [2.7, 4, 0.85;
                2.8, 4, 0.9;
@@ -37,9 +36,9 @@ locReceiver = [2.7, 4, 0.85;
                3.2, 4, 1.1;
                3.3, 4, 1.15;
                3.4, 4, 1.2];
-locReceiver = locReceiver;
 locTarget = [4, 5, 1];
 plotLayout(locInterferer, locTarget, locReceiver)
+
 [~, NN] = min(vecnorm(locReceiver-locTarget,2,2));
 disp("The microphone which is nearest to the target is microphone number " + num2str(NN));
 

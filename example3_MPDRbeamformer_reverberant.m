@@ -2,7 +2,7 @@
 %Date:      May 2024
 %Descr:     Example 3 of how to use the MPDR beamformer object. In this example, there are multiple interferers. 
 %               This example shows the performance of the MPDR beamformer. The room impulse response (RIR) is simulated using Habets RIR generator, obtained from [1]. 
-%               In case you want to see how the MPDR beamformer performs with a near-perfect estimate of the noise PSD matrix, you can set VAD flag to true in line 77(plus minus a few lines).  
+%               
 %Note:      The code supports multiple interferers, just add more interferer locations. However, I didn't write code for multiple target locations. 
 %Sources:   [1] E.A.P. Habets, RIR-generator. Available from https://github.com/ehabets/RIR-Generator.            
 
